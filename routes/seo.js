@@ -16,7 +16,7 @@ router.get('/:page', async (req, res) => {
 // GET /api/seo - Admin: get all pages
 router.get('/', protect, async (req, res) => {
   try {
-    const pages = ['home', 'calculator', 'blog', 'contact', 'about', 'global'];
+    const pages = ['home', 'calculator', 'blog', 'contact', 'about', 'global', 'privacy-policy', 'terms-of-service'];
     const seoData = {};
     for (const page of pages) {
       const seo = await Seo.findOne({ page });

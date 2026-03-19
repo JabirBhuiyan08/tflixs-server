@@ -13,6 +13,8 @@ const STATIC_PAGES = [
   { url: '/pest-guide', priority: '0.7', changefreq: 'monthly' },
   { url: '/about',      priority: '0.5', changefreq: 'monthly' },
   { url: '/contact',    priority: '0.5', changefreq: 'monthly' },
+  { url: '/privacy-policy',    priority: '0.5', changefreq: 'monthly' },
+  { url: '/terms-of-service',    priority: '0.5', changefreq: 'monthly' },
 ];
 
 const formatDate  = (d) => new Date(d).toISOString().split('T')[0];
@@ -131,6 +133,20 @@ Sitemap: ${SITE_URL}/sitemap.xml
   res.setHeader('Content-Type', 'text/plain');
   res.setHeader('Cache-Control', 'public, max-age=86400');
   res.status(200).send(content);
+});
+
+/**
+ * GET /api/sitemap/refresh
+ * Force rebuild the sitemap cache
+ */
+router.get('/api/sitemap/refresh', async (req, res) => {
+  try {
+    const { urls, xml } = await buildAndCacheSitemap();
+    res.json({ success: true, message: 'Sitemap cache rebuilt', total: urls.length });
+  } catch (err) {
+    console.error('Sitemap refresh error:', err);
+    res.status(500).json({ success: false, message: 'Error rebuilding sitemap' });
+  }
 });
 
 module.exports = router;

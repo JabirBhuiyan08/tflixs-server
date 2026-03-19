@@ -5,7 +5,7 @@ const SeoSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    enum: ['home', 'calculator', 'blog', 'contact', 'about', 'global']
+    enum: ['home', 'calculator', 'blog', 'contact', 'about', 'global', 'privacy-policy', 'terms-of-service']
   },
   metaTitle: { type: String, default: '' },
   metaDescription: { type: String, default: '' },
