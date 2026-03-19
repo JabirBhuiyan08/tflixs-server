@@ -75,6 +75,9 @@ app.use('/api/newsletter', strictLimiter, require('./routes/newsletter'));
 // Sitemap & robots — no rate limit needed (Google crawlers hit these)
 app.use('/', require('./routes/sitemap'));
 
+// Pages — strict limit for privacy-policy and terms-of-service
+app.use('/api/pages', strictLimiter, require('./routes/pages'));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Tflixs API is running ✅', env: process.env.NODE_ENV || 'development' });
